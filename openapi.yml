@@ -81,6 +81,22 @@ paths:
                   type: string
                   example: P@ssw0rd
                   description: Password of user
+                displayName:
+                  type: string
+                  example: ジョン
+                  description: The display name of the account
+                avatar:
+                  type: string
+                  example: avatar_pictrue.jpg
+                  description: The picture of the account
+                header:
+                  type: string
+                  example: header_picture.jpg
+                  description: The picture displayed at the header
+                note:
+                  type: string
+                  example: University Student
+                  description: Self-introduction
         required: true
       responses:
         "200":
@@ -492,12 +508,15 @@ components:
         note:
           type: string
           description: Biography of user
+          example: University Student
         avatar:
           type: string
           description: URL to the avatar image
+          example: avatar_pictrue.jpg
         header:
           type: string
           description: URL to the header image
+          example: header_picture.jpg
     Relationship:
       type: object
       properties:
