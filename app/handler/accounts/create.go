@@ -28,7 +28,7 @@ func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var account object.Account
+	account := new(object.Account)
 
 	if err := account.SetPassword(req.Password); err != nil {
 		httperror.InternalServerError(w, err)
@@ -36,7 +36,7 @@ func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	daoAccount := h.app.Dao.Account() // domain/repository の取得
-	entity, err := daoAccount.CreateAccount(ctx, req.Username, account.PasswordHash, req.DisplayName, req.Note, req.Avatar, req.Header)
+	account, err := daoAccount.CreateAccount(ctx, req.Username, account.PasswordHash, req.DisplayName, req.Note, req.Avatar, req.Header)
 
 	if err != nil {
 		httperror.InternalServerError(w, err)
@@ -44,7 +44,7 @@ func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(entity); err != nil {
+	if err := json.NewEncoder(w).Encode(account); err != nil {
 		httperror.InternalServerError(w, err)
 		return
 	}
