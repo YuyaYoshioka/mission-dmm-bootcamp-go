@@ -2,7 +2,6 @@ package dao
 
 import (
 	"context"
-	"fmt"
 	"yatter-backend-go/app/domain/object"
 	"yatter-backend-go/app/domain/repository"
 
@@ -37,10 +36,5 @@ func (r *status) CreateStatus(ctx context.Context, content string, accountID int
 	statusId, _ := result.LastInsertId()
 
 	r.db.QueryRowxContext(ctx, "select * from status where id = ?", statusId).StructScan(entity)
-	fmt.Println("!!!!!!")
-	fmt.Println(statusId)
-	fmt.Println(content)
-	fmt.Println(accountID)
-	fmt.Println(entity)
 	return entity, nil
 }

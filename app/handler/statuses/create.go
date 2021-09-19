@@ -2,7 +2,6 @@ package statuses
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"yatter-backend-go/app/handler/auth"
@@ -19,7 +18,6 @@ func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	account := auth.AccountOf(r)
 	accountID := int64(account.ID)
-	fmt.Println(accountID)
 
 	var req AddRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
