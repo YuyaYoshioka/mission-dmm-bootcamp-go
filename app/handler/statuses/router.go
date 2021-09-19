@@ -5,6 +5,7 @@ import (
 
 	"yatter-backend-go/app/app"
 	"yatter-backend-go/app/handler/auth"
+	// "yatter-backend-go/app/handler/auth"
 
 	"github.com/go-chi/chi"
 )
@@ -16,11 +17,15 @@ type handler struct {
 
 // Create Handler for `/v1/statuses/`
 func NewRouter(app *app.App) http.Handler {
-	r := chi.NewRouter()
-	r.Use(auth.Middleware(app))
-
+	router := chi.NewRouter()
 	h := &handler{app: app}
-	r.Post("/", h.Create)
+	router.Route("/", func(r chi.Router) {
+		r.Use(auth.Middleware(app))
+		r.Post("/", h.Create)
+	})
+	router.Route("/{id}", func(r chi.Router) {
+		r.Get("/", h.Get)
+	})
 
-	return r
+	return router
 }
