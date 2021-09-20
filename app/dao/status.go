@@ -59,10 +59,8 @@ func (r *status) FindByID(ctx context.Context, ID int64) (*object.Status, error)
 func (r *status) DeleteByID(ctx context.Context, ID int64) (error) {
 	_, err := r.db.Query("delete from status where id = ?", ID)
 	if err != nil {
-		fmt.Println("cccc")
 		return err
 	}
 
-	fmt.Println("eeeeee")
 	return nil
 }

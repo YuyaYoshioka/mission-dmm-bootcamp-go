@@ -1,7 +1,6 @@
 package statuses
 
 import (
-	"fmt"
 	"net/http"
 
 	"yatter-backend-go/app/app"
@@ -17,7 +16,6 @@ type handler struct {
 
 // Create Handler for `/v1/statuses/`
 func NewRouter(app *app.App) http.Handler {
-	fmt.Println("status router")
 	r := chi.NewRouter()
 	h := &handler{app: app}
 	r.Get("/", h.Get)	
