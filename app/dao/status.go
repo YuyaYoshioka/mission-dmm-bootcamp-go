@@ -38,7 +38,30 @@ func (r *status) CreateStatus(ctx context.Context, content string, accountID int
 
 	statusId, _ := result.LastInsertId()
 
-	r.db.QueryRowxContext(ctx, "select * from status where id = ?", statusId).StructScan(entity)
+	sql := `
+	SELECT
+		s.id as "id",
+		s.content as "content",
+		s.create_at as "create_at",
+		a.username as "account.username",
+		a.display_name as "account.display_name",
+		a.create_at as "account.create_at",
+		a.note as "account.note",
+		a.avatar as "account.avatar",
+		a.header as "account.header"
+	FROM
+		status as s
+	JOIN
+		account as a
+	ON
+		s.account_id = a.id
+	WHERE s.id = ?
+	`
+	err = r.db.QueryRowxContext(ctx, sql, statusId).StructScan(entity)
+	if err != nil {
+		return nil, err
+	}
+
 	return entity, nil
 }
 
