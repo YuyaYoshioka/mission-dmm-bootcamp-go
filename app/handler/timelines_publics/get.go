@@ -2,7 +2,6 @@ package timelines_publics
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"yatter-backend-go/app/handler/httperror"
 )
@@ -13,7 +12,6 @@ func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
 	daoTimelinesPublic := h.app.Dao.TimelinesPublic()
 	timelinesPublic, err := daoTimelinesPublic.FetchAll(ctx)
 	if err != nil {
-		fmt.Println(1)
 		httperror.InternalServerError(w, err)
 		return
 	}

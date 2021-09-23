@@ -17,13 +17,6 @@ type (
 	}
 )
 
-type StatusWithAccount struct {
-	Id string
-	Account object.Account
-	Content string
-	CreateAt object.DateTime
-}
-
 func NewTimelinesPublic(db *sqlx.DB) repository.TimelinesPublic {
 	return &timelinesPublic{db: db}
 }
