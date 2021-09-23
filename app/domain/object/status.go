@@ -7,15 +7,18 @@ type (
 	Status struct {
 
 		// The internal ID of the status
-		ID StatusID `json:"-"`
+		ID StatusID `json:"id" db:"id"`
+
+		// The account who creates status
+		Account Account `json:"account,omitempty"`
 
 		// The content of the status
-		Content string `json:"content,omitempty"`
+		Content string `json:"content,omitempty" db:"content"`
 
 		// The time the status was created
 		CreateAt DateTime `json:"create_at,omitempty" db:"create_at"`
 
 		// The account ID of status
-		AccountID AccountIDType `json:"account_id,omitempty" db:"account_id"`
+		AccountID AccountIDType `json:"-" db:"account_id"`
 	}
 )

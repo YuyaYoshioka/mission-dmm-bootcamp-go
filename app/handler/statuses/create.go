@@ -33,15 +33,8 @@ func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := map[string]interface{}{
-		"id": status.ID,
-		"account": account,
-		"content": status.Content,
-		"create_at": status.CreateAt,
-	}
-
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(res); err != nil {
+	if err := json.NewEncoder(w).Encode(status); err != nil {
 		httperror.InternalServerError(w, err)
 		return
 	}
